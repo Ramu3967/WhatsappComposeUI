@@ -1,11 +1,13 @@
 package com.example.whatsappcomposeui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -15,10 +17,13 @@ import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.TextStyle
@@ -29,10 +34,22 @@ import androidx.compose.ui.unit.sp
 import com.example.whatsappcomposeui.data.TabData
 import com.example.whatsappcomposeui.data.tabList
 import com.example.whatsappcomposeui.ui.theme.White
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun TabBarComponent() {
-    var selectedIndex by remember { mutableStateOf(0) }
+fun TabBarComponent(pagerState: PagerState) {
+    var selectedIndex by remember { mutableStateOf(pagerState.currentPage) }
+    val myScope = rememberCoroutineScope()
+
+    LaunchedEffect(pagerState){
+        snapshotFlow { pagerState.currentPage }.collectLatest {
+            selectedIndex = it
+        }
+    }
+
     TabRow(
         selectedTabIndex = selectedIndex,
         indicator =  {tabPositions ->
@@ -45,8 +62,15 @@ fun TabBarComponent() {
     ) {
         tabList.forEachIndexed { index, tabData ->
             Tab(
-                selected = index == selectedIndex, onClick = {selectedIndex = index},
-                modifier = Modifier.background(MaterialTheme.colorScheme.primary).padding(4.dp),
+                selected = index == selectedIndex, onClick = {
+                    selectedIndex = index
+                    myScope.launch {
+                        pagerState.animateScrollToPage(index)
+                    }
+                                                             },
+                modifier = Modifier
+                    .background(MaterialTheme.colorScheme.primary)
+                    .padding(4.dp),
             ) {
                 tabData.unReadCount?.let {
                     TextWithUnreadCount(tabData)
@@ -90,8 +114,8 @@ private fun TextWithUnreadCount(tabData: TabData) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun TabBarComponentPreview() {
-    TabBarComponent()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun TabBarComponentPreview() {
+//    TabBarComponent()
+//}
