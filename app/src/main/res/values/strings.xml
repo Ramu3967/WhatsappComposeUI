@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WhatsAppComposeUI</string>
+    <string name="app_title">WhatsApp</string>
 </resources>
