@@ -1,4 +1,4 @@
-![whatsappCloneCompressed](https://github.com/Ramu3967/WhatsappComposeUI/assets/26451658/6bf3ec24-bb91-4654-8fa4-cf4514d7eb2e)
+
 # WhatsApp UI Clone Using JetPack Compose
 
 WhatsAppComposeUI is an Android application built using Jetpack Compose that mimics the user interface of the WhatsApp messaging application.
@@ -26,4 +26,5 @@ This project includes the following features:
 ## Demo
 
 
-![whatsappCloneCompressed](https://github.com/Ramu3967/WhatsappComposeUI/assets/26451658/5699d8fb-d1d0-4f5b-bfb7-722bb447a88e)
+
+<img src="[images/your-gif.gif](https://github.com/Ramu3967/WhatsappComposeUI/assets/26451658/5699d8fb-d1d0-4f5b-bfb7-722bb447a88e)" alt="DEMO GIF"  height="300">
