@@ -19,10 +19,10 @@ https://github.com/Ramu3967/WhatsappComposeUI.git
 This project includes the following features:
 
 - Chat Screen: Displaying a list of chats with users.
-- Status Screen: Showing the status updates of contacts.
-- Call Screen: Presenting a list of recent calls.
+- Status Screen: Showing the status updates of contacts [TBD].
+- Call Screen: Presenting a list of recent calls [TBD].
 
-
+- Functionality is not the goal here as the project focuses on just the UI (It'll be added later).
 ## Demo
 
 ![whatsappCloneCompressed](https://github.com/Ramu3967/WhatsappComposeUI/assets/26451658/5699d8fb-d1d0-4f5b-bfb7-722bb447a88e)
